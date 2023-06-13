@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BSH Energy Tracker - Consumption Tracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .submit-button {
+            background-color: #0000FF;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .chart {
+            width: 100%;
+            height: 300px;
+            background-color: #ddd;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BSH Energy Tracker</h1>
+        <h2>Consumption Tracking</h2>
+        <form action="/action_page.php">
+            <label for="appliance">Appliance:</label><br>
+            <select id="appliance" name="appliance">
+                <option value="Refrigerador">Refrigerator</option>
+                <option value="Lavadora">Laundry machine</option>
+                <!-- Add more options as needed -->
+            </select><br>
+            <label for="reading">Consumption Reading:</label><br>
+            <input type="text" id="reading" name="reading"><br>
+            <input class="submit-button" type="submit" value="Submit">
+        </form> 
+        <h3>Consumption Records</h3>
+        <table>
+            <tr>
+                <th>Appliance</th>
+                <th>Consumption Reading</th>
+            </tr>
+            <tr>
+                <td>Refrigerator</td>
+                <td>500</td>
+            </tr>
+            <tr>
+                <td>Laundry Machine</td>
+                <td>300</td>
+            </tr>
+        </table>
+        <h3>Consumption Chart</h3>
+        <div class="chart">Placeholder for the energy consumption chart</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>B/S/H Alerts and Notifications Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+        h1 {
+            color: black;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .alert-list {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .alert-list th {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .alert-list td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .alert-configure {
+            margin-top: 20px;
+        }
+        .alert-configure label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .alert-configure input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>B/S/H Alerts and Notifications Page</h1>
+        <p>This page will display the alerts and notifications sent by the application to the user.</p>
+        <div class="alert-list">
+            <h3>Recent Alerts and Notifications</h3>
+            <table>
+                <tr>
+                    <th>Alert/Notification</th>
+                    <th>Date/Time</th>
+                </tr>
+                <tr>
+                    <td>Alert 1</td>
+                    <td>2023-05-25 09:30 AM</td>
+                </tr>
+                <tr>
+                    <td>Notification 1</td>
+                    <td>2023-05-24 03:45 PM</td>
+                </tr>
+                <tr>
+                    <td>Notification 2</td>
+                    <td>2023-05-23 11:15 AM</td>
+                </tr>
+            </table>
+        </div>
+        <div class="alert-configure">
+            <h3>Alert Configuration</h3>
+            <label>
+                <input type="checkbox" name="alert-type" value="email"> Email Notifications
+            </label>
+            <label>
+                <input type="checkbox" name="alert-type" value="sms"> SMS Notifications
+            </label>
+            <label>
+                <input type="checkbox" name="alert-type" value="push"> Push Notifications
+            </label>
+        </div>
+    </div>
+</body>
+</html>

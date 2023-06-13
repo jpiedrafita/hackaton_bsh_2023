@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .header .buttons {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .header .buttons a {
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .header .register-button {
+            background-color: blue;
+            color: white;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form {
+            width: 50%;
+            margin: auto;
+        }
+        .form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .form input[type="email"],
+        .form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .form input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="buttons">
+                <a class="button" href="/">Home</a>
+                <a class="button" href="/login">Login</a>
+            </div>
+            <h1 class="title">Eco Tracker by /B/S/H/</h1>
+        </div>
+
+        <div class="form">
+            <h2>Register</h2>
+            <form action="/register" method="POST">
+                <label for="username">Username</label>
+                <input type="username" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <input type="submit" value="Register">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

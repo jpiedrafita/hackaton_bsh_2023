@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 20px;
+        }
+        .header .buttons {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .header .buttons a {
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .header .register-button {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .header .login-button {
+            background-color: blue;
+            color: white;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .appliances {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+        .appliance {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            width: calc(50% - 20px); /* Each appliance will take up half of the available width, minus a small margin */
+            margin: 10px;
+        }
+        @media screen and (min-width: 600px) {
+            .appliance {
+                width: calc(33% - 20px); /* On larger screens, each appliance will take up a third of the available width */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="buttons">
+                <a class="button register-button" href="/register">Register</a>
+                <a class="button login-button" href="/login">Login</a>
+            </div>
+            <h1 class="title">Eco Tracker by /B/S/H/</h1>
+        </div>
+
+        <div class="appliances">
+            <!-- Example Appliance -->
+            <div class="appliance">
+                <h2>Appliance 1</h2>
+                <p>Current Energy Efficiency: A+</p>
+            </div>
+
+            <!-- Repeat the following section for each registered appliance -->
+            <!-- Replace the static data with dynamic data from the Firebase table -->
+
+            <!--
+            <div class="appliance">
+                <h2>Appliance Name</h2>
+                <p>Current Energy Efficiency: Energy Efficiency Rating</p>
+            </div>
+            -->
+        </div>
+    </div>
+</body>
+</html>

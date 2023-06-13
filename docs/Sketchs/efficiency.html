@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>B/S/H Energy Efficiency Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+        h1 {
+            color: black;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .chart {
+            width: 100%;
+            height: 300px;
+            background-color: #ddd;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        .registered {
+            font-weight: bold;
+        }
+        .select-appliance {
+            margin-bottom: 20px;
+        }
+        .select-appliance select {
+            padding: 8px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #f2f2f2;
+        }
+        .comparison-list {
+            margin-top: 20px;
+        }
+        .comparison-list .best-efficiency {
+            font-weight: bold;
+            color: green;
+        }
+        .comparison-list .intermediate-efficiency {
+            font-weight: bold;
+            color: blue;
+        }
+        .comparison-list .registered-appliance {
+            font-weight: bold;
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>B/S/H Energy Efficiency Page</h1>
+        <p>This page will display the energy efficiency calculation for each appliance and compare it with other appliances obtained from a database.</p>
+        <div class="select-appliance">
+            <label for="appliance-type">Select Appliance Type:</label>
+            <select id="appliance-type" name="appliance-type">
+                <option value="refrigerator">Refrigerators</option>
+                <option value="laundry-machine">Laundry Machines</option>
+                <option value="oven">Ovens</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+        <p>Below is a comparison of energy efficiency ratings for appliances of the selected type:</p>
+        <table class="comparison-list">
+            <tr>
+                <th>Appliance</th>
+                <th>Efficiency Rating</th>
+            </tr>
+            <tr>
+                <td class="best-efficiency">Refrigerator 1 (A++)</td>
+                <td class="best-efficiency">A++</td>
+            </tr>
+            <tr>
+                <td class="intermediate-efficiency">Refrigerator 2 (A)</td>
+                <td class="intermediate-efficiency">A</td>
+            </tr>
+            <tr>
+                <td class="registered-appliance">Your Registered Refrigerator</td>
+                <td class="registered-appliance">A</

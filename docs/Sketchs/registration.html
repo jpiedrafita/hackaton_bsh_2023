@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Appliance Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .btn {
+      background-color: #007BFF;
+      color: #FFFFFF;
+      padding: 14px 20px;
+      margin: 10px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      opacity: 0.9;
+    }
+    .btn:hover {
+      opacity: 1;
+    }
+    .container {
+      padding: 16px;
+      width: 50%;
+      margin: 0 auto;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">New Appliance Registration</h1>
+  <div class="container">
+    <form action="/submit" method="post">
+      <label for="type">Appliance Type:</label>
+      <input type="text" id="type" name="type">
+      <label for="brand">Brand:</label>
+      <input type="text" id="brand" name="brand">
+      <label for="model">Model:</label>
+      <input type="text" id="model" name="model">
+      <label for="date">Purchase Date:</label>
+      <input type="date" id="date" name="date">
+      <button class="btn" type="submit">Register</button>
+    </form>
+  </div>
+</body>
+</html>
