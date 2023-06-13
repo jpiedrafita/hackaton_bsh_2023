@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 # Get an instance of firestore
-db = firestore.Client.from_service_account_json('./prj-sb-multicloudpoc2f-73fde790ff5f.json')
+db = firestore.Client.from_service_account_json('./cloud-rangers-fierebase.json')
 
 @app.route('/')
 def home_page():
