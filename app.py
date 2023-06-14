@@ -93,7 +93,7 @@ def log_in():
             session.clear()
             session['user_id'] = username
             print(session['user_id'])  #debug
-            return redirect('/')
+            return redirect('/appliances')
         
         flash(error, 'error')
 
@@ -178,6 +178,25 @@ def appliance_delete(appliance_id):
     else:
         flash("Appliance does not exist.", 'error')
     return redirect(url_for('appliances'))
+
+@app.route('/appliances/<appliance_id>/consume', methods=('GET', 'POST'))
+@require_login
+def appliance_consume(appliance_id):
+    #Get appliance data from appliance ID
+    print(f"appliance id: {appliance_id}")
+    appliance_ref = db.collection('user_appliances').document(appliance_id)
+    # Verifies
+    if not appliance_ref.get().exists:
+        flash('Appliance not found.', 'error')
+        return redirect(url_for('appliances'))
+    
+    appliance = appliance_ref.get().to_dict()
+
+    if request.method == 'POST':
+        #TODO: save consumes
+        print("TODO")
+    
+    return render_template('appliance_consume.html', appliance=appliance)
 
 
 

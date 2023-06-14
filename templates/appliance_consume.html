@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1 class="is-size-3">New consume for {{ appliance.type }} {{ appliance.brand }} {{ appliance.model }}</h1>
+
+  <form action="#" method="post">
+    <div class="field">
+      <label class="label" for="date">Date</label>
+      <div class="control">
+        <input name="date" value="{{ request.form['date'] }}" class="input"></input>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="body">Model</label>
+      <div class="control">
+        <input name="model" value="{{ request.form['model'] }}" class="input"></input>
+      </div>
+    </div>
+
+   
+    <div class="field is-grouped">
+      <div class="control">
+        <input type="submit" value="Save consume" class="button is-primary" />
+      </div>
+      <div class="control">
+        <a href="{{ url_for('appliances') }}" class="#">Cancel</a>
+      </div>
+    </div>
+  </form>
+
+{% endblock %}
