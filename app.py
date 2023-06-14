@@ -29,7 +29,6 @@ def load_user():
     else:
         g.user = None
 
-
 # Sign up page - Stores user and hashed password in firestore
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
@@ -92,8 +91,8 @@ def log_in():
         if error is None:
             #Store user_id in session
             session.clear()
-            session['user_id'] = user_ref[0].id
-            print(user_ref[0].id)  #debug
+            session['user_id'] = username
+            print(session['user_id'])  #debug
             return redirect('/')
         
         flash(error, 'error')
@@ -116,8 +115,14 @@ def index():
 # Registered appliances page
 @app.route('/appliances')
 @require_login
-def appliance_index():
-    return 'Appliances Index'
+def appliances():
+    # Get user ID
+    user = session.get('user_id')
+    # Ger user appliances
+    appliances_ref = db.collection('user_appliances').where('user', '==', user)
+    appliances = [doc.to_dict() for doc in appliances_ref.get()]
+    
+    return render_template('appliances.html', appliances=appliances)
 
 # Register new appliance
 @app.route('/appliances/new', methods=['GET', 'POST'])
@@ -125,8 +130,8 @@ def appliance_index():
 def appliance_create():
     if request.method == 'POST':
         # TODO: update the form with appliances data
-        model = request.form['title']
-        efficiency = request.form['body']
+        brand = request.form['brand']
+        model = request.form['model']
         # ...
         error = None
 
@@ -136,8 +141,8 @@ def appliance_create():
         if error is None:
             # TODO: instantiate appliance full data
             new_appliance = {
-                'model': model,
-                'efficiency': efficiency
+                'brand': brand,
+                'model': model
                 # ...
             }
              # Get a reference of the users collection

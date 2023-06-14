@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if not appliances %}
+    <div class="content">
+      <p>You haven't created any notes! <a href="{{ url_for('appliance_create') }}">Create your first note.</a>
+    </div>
+  {% endif %}
+
+  {% for appliance in appliances %}
+    <article class="message">
+      <div class="message-header">
+        <p>{{ appliance.type }}</p>
+        <div>
+          <a class="button is-primary is-small has-text-weight-bold" href="#">
+            Add Consume
+          </a>
+          <a class="button is-danger is-small has-text-weight-bold" href="#">
+            Delete Appliance
+          </a>
+        </div>
+      </div>
+      <div class="message-body content">
+        <p><strong>Brand:</strong> {{ appliance.brand }}</p>
+        <p><strong>Model:</strong> {{ appliance.model }}</p>
+        <p><strong>Efficiency:</strong> {{ appliance.efficiency }}</p>
+        <p><strong>Year:</strong> {{ appliance.year }}</p>
+        </div>
+    </article>
+  {% endfor %}
+{% endblock %}
