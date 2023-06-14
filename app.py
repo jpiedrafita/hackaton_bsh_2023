@@ -90,6 +90,11 @@ def index():
     return 'Index'
 
 
+@app.route('/en_chart')
+def chart_page():
+    return render_template('chart_main.html')
+
+
 if __name__ == '__main__':
     app.secret_key = 'test1234'  # Set a secret key for flash messages
     app.run()
