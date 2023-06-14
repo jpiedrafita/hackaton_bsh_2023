@@ -6,13 +6,15 @@ app = Flask(__name__)
 # Get an instance of firestore
 db = firestore.Client.from_service_account_json('./cloud-rangers-fierebase.json')
 
-# Home page
-@app.route('/')
-def home_page():
-    return render_template('home.html')
+@app.route('/logout', methods=['GET', 'DELETE'])
+def logout():
+    session.clear()
+    flash('Successfully logged out.', 'success')
+    return redirect(url_for('login'))
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
+@app.route('/sign_up', methods=['GET', 'POST'])
+def sign_up():
+
     # Get uername and password values from the register.html form
     if request.method == 'POST':
         username = request.form['username']
@@ -40,15 +42,14 @@ def register():
             users_ref = db.collection('users')
             users_ref.add(new_user)
             flash('User created successfully!, please log in', 'success')
-            return redirect(url_for('login'))
+            return redirect(url_for('log_in'))
         
         flash(error, 'error')
 
-    return render_template('register.html')
+    return render_template('sign_up.html')
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-
+@app.route('/log_in', methods=['GET', 'POST'])
+def log_in():
     # Get data from the login.html form
     if request.method == 'POST':
         username = request.form['username']
@@ -56,27 +57,34 @@ def login():
         error = None
 
         # We query the username in the db
-        user = db.collection('users').where('username', '==', username).get()
+        user_ref = db.collection('users').where('username', '==', username).get()
 
-        if not user or not check_password_hash(user.password, password):
+        # if not user or not check_password_hash(user.password, password):
+        #     error = 'Username or password are incorrect.'
+
+        if len(user_ref) == 0:
             error = 'Username or password are incorrect.'
+        else:
+            user_data = user_ref[0].to_dict()
+            stored_password = user_data.get('password')
+            if not check_password_hash(stored_password, password):
+                error = 'Username or password are incorrect.'
         
         if error is None:
+            #Store user_id in session
             session.clear()
-            session['user_id'] = user.id
-            print(user.id)
-            return redirect(url_for('home'))
-
+            session['user_id'] = user_ref[0].id
+            print(user_ref[0])  #debug
+            return redirect('/')
+        
         flash(error, 'error')
 
-    return render_template('login.html')
+    return render_template('log_in.html')
 
-@app.route('/logout', methods=['GET', 'DELETE'])
-def logout():
-    session.clear()
-    flash('Successfully logged out.', 'success')
-    return redirect(url_for('login'))
-
+# Home page
+@app.route('/')
+def index():
+    return 'Index'
 
 if __name__ == '__main__':
     app.secret_key = 'test1234'  # Set a secret key for flash messages
