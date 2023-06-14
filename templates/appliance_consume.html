@@ -13,19 +13,32 @@
     </div>
 
     <div class="field">
-      <label class="label" for="body">Model</label>
+      <label class="label" for="body">Reading</label>
       <div class="control">
-        <input name="model" value="{{ request.form['model'] }}" class="input"></input>
+        <input name="reading" value="{{ request.form['reading'] }}" class="input"></input>
       </div>
     </div>
-
-   
     <div class="field is-grouped">
       <div class="control">
         <input type="submit" value="Save consume" class="button is-primary" />
       </div>
       <div class="control">
         <a href="{{ url_for('appliances') }}" class="#">Cancel</a>
+      </div>
+    </div>
+      <div class="field">
+        <div class="control">
+          {% if appliance.consume %}
+            <label class="label">Readings:</label>
+            <ul>
+              {% for key, value in appliance.consume.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+              {% endfor %}
+            </ul>
+          {% else%}
+            <p><strong>No readings available</strong></p>
+          {% endif %}
+        </div>
       </div>
     </div>
   </form>
