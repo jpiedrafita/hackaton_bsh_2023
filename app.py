@@ -132,7 +132,11 @@ def appliance_create():
         # TODO: update the form with appliances data
         brand = request.form['brand']
         model = request.form['model']
-        # ...
+        type = request.form['type']
+        efficiency = request.form['efficiency']
+        year = request.form['year']
+        user = session.get('user_id')
+
         error = None
 
         if not model:
@@ -142,8 +146,11 @@ def appliance_create():
             # TODO: instantiate appliance full data
             new_appliance = {
                 'brand': brand,
-                'model': model
-                # ...
+                'model': model,
+                'type': type,
+                'efficiency': efficiency,
+                'year': year,
+                'user': session.get('user_id')
             }
              # Get a reference of the users collection
             appliances_ref = db.collection('user_appliances')
