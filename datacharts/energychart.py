@@ -1,6 +1,9 @@
 import pandas as pd
 from prophet import Prophet
 from prophet.plot import plot_plotly, plot_components_plotly
+from entsoe import EntsoeRawClient
+import pandas as pd
+
 
 def plot_grap():
     data = pd.read_csv('datacharts/inoutdata1.csv')
