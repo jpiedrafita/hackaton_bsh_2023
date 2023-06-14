@@ -12,7 +12,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
-          <a class="navbar-item" href="#">Appliances</a>
+          <a class="navbar-item" href="{{ url_for('appliances') }}">Appliances</a>
           <div class="navbar-burger" data-target="navMenu">
             <span></span>
             <span></span>
@@ -22,10 +22,10 @@
         <div class="navbar-menu" id="navMenu">
           <div class="navbar-end">
             {% if g.user %}
-              <a class="navbar-item" href="#" aria-label="New Note">
+              <a class="navbar-item" href="{{ url_for('appliance_create') }}" aria-label="New Appliance">
                 <i class="far fa-plus-square"></i>
               </a>
-              <a class="navbar-item"  href="#">
+              <a class="navbar-item"  href="{{ url_for('log_out') }}">
                 Log Out
               </a>
             {% else %}
@@ -40,6 +40,11 @@
         </div>
       </div>
     </nav>
+
+      <div class="container">
+        <h1 class="has-text-centered is-size-3">Eco Tracker by /B/S/H/</h1>
+      </div>
+
     {% if get_flashed_messages() %}
       <div class="container">
         {% for category, message in get_flashed_messages(with_categories=True) %}
