@@ -13,7 +13,6 @@
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item" href="#">Appliances</a>
-
           <div class="navbar-burger" data-target="navMenu">
             <span></span>
             <span></span>
@@ -23,17 +22,17 @@
         <div class="navbar-menu" id="navMenu">
           <div class="navbar-end">
             {% if g.user %}
-              <a class="navbar-item" href="#" aria-label="New Appliance">
+              <a class="navbar-item" href="#" aria-label="New Note">
                 <i class="far fa-plus-square"></i>
               </a>
               <a class="navbar-item"  href="#">
                 Log Out
               </a>
             {% else %}
-              <a class="navbar-item" href="#">
+              <a class="navbar-item" href="{{ url_for('log_in') }}">
                 Log In
               </a>
-              <a class="navbar-item" href="{{ url_for('register') }}">
+              <a class="navbar-item" href="{{ url_for('sign_up') }}">
                 Sign Up
               </a>
             {% endif %}
