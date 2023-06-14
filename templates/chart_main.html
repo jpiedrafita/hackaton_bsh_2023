@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html>
 <head>
 <title>Appliance consumption</title>
@@ -9,19 +10,25 @@
 <br>
 <!-- somewhere up top -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<p>Country</p>
 <form action="/en_chart" method="POST">
-  <label for="cars">Choose a country:</label>
+  <label for="country">Choose a country:</label>
   <select name="country" id="country">
     <option value="PL">Poland</option>
     <option value="DE">Germany</option>
     <option value="ES">Spain</option>
     <option value="PT">Portugal</option>
+    <option value="DK">Danmark</option>
+    <option value="SK">Sweden</option>
+    <option value="NO">Norway</option>
+    <option value="FR">France</option>
+    <option value="IT">Italy</option>
+    <option value="FI">Finland</option>
+    <option value="CZ">Czech Rep</option>
   </select>
   <br><br>
   <input type="submit" value="Submit">
 </form>
-<h3>Line Graph Energy for {{country}}</h3>
+<h2>Line Graph Energy for {{country}}</h2>
 <!-- scatter plot goes in this div -->
 <div id='all-pub-graph'></div>
 <script type="text/javascript">
@@ -32,6 +39,23 @@
         // put your graph in the second, and set the third as {}
         Plotly.plot("all-pub-graph", the_pubs_graph, {});
 </script>
+<br>
+<h2> APLIANCE IS {{appliance}}</h2>
+
+<form action="/en_chart" method="POST">
+<label for="slider">Select Time</label>
+<input type="range" id="slider" name="timeslide" min="0" max="23" step="1" oninput="updateTime(this.value)" value="12">
+  <p id="timeDisplay"></p>
+<script>
+  function updateTime(value) {
+    var timeDisplay = document.getElementById("timeDisplay");
+    timeDisplay.textContent = value + ":00";
+      }
+</script>
+<button type="submit">Select</button>
+</form>
+<h3>Appliance will be started at  {{timeStart}}</h3>
+
 
 </body>
 </html>

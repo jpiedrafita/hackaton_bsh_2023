@@ -1,6 +1,12 @@
+import plotly.io
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from google.cloud import firestore
 from werkzeug.security import generate_password_hash, check_password_hash
+from plotly import utils
+from json import dumps
+import plotly.express as px
+from datacharts.entso_data import get_data_fromENTSOE
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 # Get an instance of firestore
@@ -90,10 +96,36 @@ def index():
     return 'Index'
 
 
-@app.route('/en_chart')
-def chart_page():
-    return render_template('chart_main.html')
+def todaydate():
+    today = datetime.now().date()
+    formatted_date = today.strftime('%Y%m%d')
+    next_day = today + timedelta(days=2)
+    tomorrow = next_day.strftime('%Y%m%d')
 
+    return (formatted_date,tomorrow)
+
+@app.route('/en_chart', methods=['GET', 'POST'])
+def chart_page():
+    get_timeframe=todaydate()
+  # print(get_timeframe)
+    appliance='DISHWASHER'
+    country = request.form.get('country')
+    timeslide = request.form.get('timeslide')
+    print(timeslide)
+    if timeslide == None:
+        timeslide='12'
+        print('Default Time is ', timeslide)
+
+    if country == None:
+        country='PL'
+        print('Default country is ', country)
+    timeslide=timeslide+':00'
+    fig_froments=get_data_fromENTSOE(country,get_timeframe)
+    # Create a JSON representation of the graph
+
+    fig = px.line(fig_froments, template="seaborn")
+    graphJSON = dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return render_template('chart_main.html', pub_lines_JSON=graphJSON, country=country,timeStart=timeslide,appliance=appliance)
 
 if __name__ == '__main__':
     app.secret_key = 'test1234'  # Set a secret key for flash messages
