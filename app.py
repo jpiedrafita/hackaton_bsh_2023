@@ -109,7 +109,7 @@ def log_out():
 # Home page
 @app.route('/')
 def index():
-    return 'Index'
+    return render_template('index.html')
 
 
 # Registered appliances page
