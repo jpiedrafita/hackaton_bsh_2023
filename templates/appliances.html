@@ -12,7 +12,7 @@
       <div class="message-header">
         <p>{{ appliance.type }}</p>
         <div>
-          <a class="button is-primary is-small has-text-weight-bold" href="#">
+          <a class="button is-primary is-small has-text-weight-bold" href="{{ url_for('appliance_consume', appliance_id=appliance.id)}}">
             Add Consume
           </a>
           <a class="button is-danger is-small has-text-weight-bold" href="{{ url_for('appliance_delete', appliance_id=appliance.id)}}">
@@ -20,11 +20,24 @@
           </a>
         </div>
       </div>
-      <div class="message-body content">
-        <p><strong>Brand:</strong> {{ appliance.brand }}</p>
-        <p><strong>Model:</strong> {{ appliance.model }}</p>
-        <p><strong>Efficiency:</strong> {{ appliance.efficiency }}</p>
-        <p><strong>Year:</strong> {{ appliance.year }}</p>
+      <div class="message-body columns">
+        <div class="column is-one-third">
+          <p><strong>Brand:</strong> {{ appliance.brand }}</p>
+          <p><strong>Model:</strong> {{ appliance.model }}</p>
+          <p><strong>Efficiency:</strong> {{ appliance.efficiency }}</p>
+          <p><strong>Year:</strong> {{ appliance.year }}</p>
+        </div>
+          <div class="column">
+            {% if appliance.consume %}
+              <h4>Energy consumption (kWh):</h4>
+              {% for key, value in appliance.consume.items() %}
+                <p ><strong>{{ key }}:</strong> {{ value }}</p>
+              {% endfor %}
+            {% else %}
+              <p ><strong>No consumption data available</p>
+            {% endif %}
+
+          </div>
         </div>
     </article>
   {% endfor %}
