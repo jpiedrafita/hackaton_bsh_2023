@@ -25,7 +25,7 @@
               <a class="navbar-item" href="#" aria-label="New Note">
                 <i class="far fa-plus-square"></i>
               </a>
-              <a class="navbar-item"  href="#">
+              <a class="navbar-item"  href="{{ url_for('log_out') }}">
                 Log Out
               </a>
             {% else %}
@@ -40,6 +40,11 @@
         </div>
       </div>
     </nav>
+
+      <div class="container">
+        <h1 class="has-text-centered is-size-3">Eco Tracker by /B/S/H/</h1>
+      </div>
+
     {% if get_flashed_messages() %}
       <div class="container">
         {% for category, message in get_flashed_messages(with_categories=True) %}

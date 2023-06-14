@@ -1,18 +1,36 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash, g
 from google.cloud import firestore
 from werkzeug.security import generate_password_hash, check_password_hash
-
+import functools
 
 app = Flask(__name__)
 # Get an instance of firestore
 db = firestore.Client.from_service_account_json('./cloud-rangers-fierebase.json')
 
-@app.route('/logout', methods=['GET', 'DELETE'])
-def logout():
-    session.clear()
-    flash('Successfully logged out.', 'success')
-    return redirect(url_for('login'))
+# We protect a view if we are not logged in --> g.user
+# This takes a view (a view function as sign_up) and returns a function that decorates it
+def require_login(view):
+    # functools.wrap will map the function metadata back
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if not g.user:
+            return redirect(url_for('log_in'))
+        return view(**kwargs)
+    return wrapped_view
 
+# Check for a user_id on the session
+@app.before_request
+def load_user():
+    user_id = session.get('user_id')
+    #debug
+    print(f"user id: {user_id}")
+    if user_id:
+        g.user = user_id
+    else:
+        g.user = None
+
+
+# Sign up page - Stores user and hashed password in firestore
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
 
@@ -22,9 +40,8 @@ def sign_up():
         password = request.form['password']
         error = None
 
-        # Check if user exists
+        # Check if user exists and populate error message
         user_check = db.collection('users').where('username', '==', username).get()
-
         if not username:
             error = 'Username is required'
         elif not password:
@@ -32,7 +49,7 @@ def sign_up():
         elif user_check:
             error = ('Username already taken')
 
-        # If there are no errors we hash the password and store the new user in the db
+        # If there are no errors we hash the password, store the new user in the db, adn redirect to log in page
         if error is None:
             password = generate_password_hash(password)
             new_user = {
@@ -49,6 +66,7 @@ def sign_up():
 
     return render_template('sign_up.html')
 
+# Log in page - Read creentials from firestore and creates session
 @app.route('/log_in', methods=['GET', 'POST'])
 def log_in():
     # Get data from the login.html form
@@ -60,32 +78,77 @@ def log_in():
         # We query the username in the db
         user_ref = db.collection('users').where('username', '==', username).get()
 
-        # if not user or not check_password_hash(user.password, password):
-        #     error = 'Username or password are incorrect.'
-
+        # If the user_ref is empty then username does not exist
         if len(user_ref) == 0:
             error = 'Username or password are incorrect.'
         else:
+            # if the username exists, we check hashed password
             user_data = user_ref[0].to_dict()
             stored_password = user_data.get('password')
             if not check_password_hash(stored_password, password):
                 error = 'Username or password are incorrect.'
         
+        # If there are no errors the user is logged in and redirect to main page
         if error is None:
             #Store user_id in session
             session.clear()
             session['user_id'] = user_ref[0].id
-            print(user_ref[0])  #debug
+            print(user_ref[0].id)  #debug
             return redirect('/')
         
         flash(error, 'error')
 
     return render_template('log_in.html')
 
+# Log out - As long there is no log ou button use the url: app_url:5000/log_out
+@app.route('/log_out', methods=['GET', 'DELETE'])
+def log_out():
+    session.clear()
+    flash('Successfully logged out.', 'success')
+    return redirect(url_for('log_in'))
+
 # Home page
 @app.route('/')
 def index():
     return 'Index'
+
+
+# Registered appliances page
+@app.route('/appliances')
+@require_login
+def appliance_index():
+    return 'Appliances Index'
+
+# Register new appliance
+@app.route('/appliances/new', methods=['GET', 'POST'])
+@require_login
+def appliance_create():
+    if request.method == 'POST':
+        # TODO: update the form with appliances data
+        model = request.form['title']
+        efficiency = request.form['body']
+        # ...
+        error = None
+
+        if not model:
+            error = 'Model is required.'
+
+        if error is None:
+            # TODO: instantiate appliance full data
+            new_appliance = {
+                'model': model,
+                'efficiency': efficiency
+                # ...
+            }
+             # Get a reference of the users collection
+            appliances_ref = db.collection('user_appliances')
+            appliances_ref.add(new_appliance)
+            flash(f"Appliance {model} successfully registered!", 'success')
+            return redirect(url_for('appliances'))
+        
+        flash(error, 'error')
+    
+    return render_template('appliance_create.html')
 
 if __name__ == '__main__':
     app.secret_key = 'test1234'  # Set a secret key for flash messages
