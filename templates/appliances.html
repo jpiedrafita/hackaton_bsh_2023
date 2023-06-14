@@ -3,7 +3,7 @@
 {% block content %}
   {% if not appliances %}
     <div class="content">
-      <p>You haven't created any notes! <a href="{{ url_for('appliance_create') }}">Create your first note.</a>
+      <p>You haven't created any Appliance! <a href="{{ url_for('appliance_create') }}">Create your first Appliance.</a>
     </div>
   {% endif %}
 
@@ -15,7 +15,7 @@
           <a class="button is-primary is-small has-text-weight-bold" href="#">
             Add Consume
           </a>
-          <a class="button is-danger is-small has-text-weight-bold" href="#">
+          <a class="button is-danger is-small has-text-weight-bold" href="{{ url_for('appliance_delete', appliance_id=appliance.id)}}">
             Delete Appliance
           </a>
         </div>

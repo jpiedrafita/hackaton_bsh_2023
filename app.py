@@ -120,8 +120,16 @@ def appliances():
     user = session.get('user_id')
     # Ger user appliances
     appliances_ref = db.collection('user_appliances').where('user', '==', user)
-    appliances = [doc.to_dict() for doc in appliances_ref.get()]
-    
+    appliances = []
+    # Get the firestore doc numbers
+    doc_numbers = [doc.id for doc in appliances_ref.stream()]
+
+    # Adds the doc numer as appliance id so it can be deleted or register readings
+    for doc_number, doc in zip(doc_numbers, appliances_ref.get()):
+        appliance_data = doc.to_dict()
+        appliance_data['id'] = doc_number
+        appliances.append(appliance_data)
+
     return render_template('appliances.html', appliances=appliances)
 
 # Register new appliance
@@ -129,7 +137,6 @@ def appliances():
 @require_login
 def appliance_create():
     if request.method == 'POST':
-        # TODO: update the form with appliances data
         brand = request.form['brand']
         model = request.form['model']
         type = request.form['type']
@@ -143,7 +150,6 @@ def appliance_create():
             error = 'Model is required.'
 
         if error is None:
-            # TODO: instantiate appliance full data
             new_appliance = {
                 'brand': brand,
                 'model': model,
@@ -161,6 +167,30 @@ def appliance_create():
         flash(error, 'error')
     
     return render_template('appliance_create.html')
+
+@app.route('/appliances/<appliance_id>/delete', methods=('GET', 'DELETE'))
+@require_login
+def appliance_delete(appliance_id):
+    appliance_ref = db.collection('user_appliances').document(appliance_id)
+    if appliance_ref.get().exists:
+        appliance_ref.delete()
+        flash("Appliance deleted successfully.", 'success')
+    else:
+        flash("Appliance does not exist.", 'error')
+    return redirect(url_for('appliances'))
+
+
+
+#TODO
+# @app.route('appliances/<appliance_id>/readings', methods=('GET', 'POST'))
+# @require_login
+# def register_reading(appliance_id):
+#     #TODO: query appliance
+#     return render_template('register_reading.html')
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html')
 
 if __name__ == '__main__':
     app.secret_key = 'test1234'  # Set a secret key for flash messages
