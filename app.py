@@ -101,7 +101,6 @@ def todaydate():
     formatted_date = today.strftime('%Y%m%d')
     next_day = today + timedelta(days=2)
     tomorrow = next_day.strftime('%Y%m%d')
-
     return (formatted_date,tomorrow)
 
 @app.route('/en_chart', methods=['GET', 'POST'])
