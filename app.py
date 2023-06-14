@@ -71,6 +71,11 @@ def login():
         flash(error, 'error')
 
     return render_template('login.html')
+'''
+@app.route('/chart', methods=['GET', 'DELETE'])
+def 
+'''
+
 
 @app.route('/logout', methods=['GET', 'DELETE'])
 def logout():
