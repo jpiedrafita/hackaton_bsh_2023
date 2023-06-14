@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from google.cloud import firestore
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 app = Flask(__name__)
 # Get an instance of firestore
 db = firestore.Client.from_service_account_json('./cloud-rangers-fierebase.json')
