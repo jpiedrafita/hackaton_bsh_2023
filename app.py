@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash, g
 from google.cloud import firestore
 from werkzeug.security import generate_password_hash, check_password_hash
-<<<<<<< HEAD
-=======
 import functools
->>>>>>> cfca8612516f21bf5973c641abb33a8bcbbfdf55
+
 
 app = Flask(__name__)
 # Get an instance of firestore
