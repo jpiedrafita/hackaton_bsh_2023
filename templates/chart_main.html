@@ -6,10 +6,32 @@
 <meta name="keywords" content="energy">
 </head>
 <body>
-TABLE HERE
+<br>
+<!-- somewhere up top -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<p>Country</p>
+<form action="/en_chart" method="POST">
+  <label for="cars">Choose a country:</label>
+  <select name="country" id="country">
+    <option value="PL">Poland</option>
+    <option value="DE">Germany</option>
+    <option value="ES">Spain</option>
+    <option value="PT">Portugal</option>
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+<h3>Line Graph Energy for {{country}}</h3>
+<!-- scatter plot goes in this div -->
+<div id='all-pub-graph'></div>
+<script type="text/javascript">
+        // here is where the JSON gets plugged in via JS
+        var the_pubs_graph = {{pub_lines_JSON | safe}};
 
-<<>>>
-
+        // you target the graph div id in the first arg,
+        // put your graph in the second, and set the third as {}
+        Plotly.plot("all-pub-graph", the_pubs_graph, {});
+</script>
 
 </body>
 </html>
