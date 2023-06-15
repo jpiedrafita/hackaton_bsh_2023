@@ -12,4 +12,5 @@ COPY . /app
 # Run any required commands
 RUN export FLASK_ENV=development \
     export FLASK_APP='app.py'
-CMD flask run --host=0.0.0.0 --port=5000
+EXPOSE 3000
+CMD flask run --host=0.0.0.0 --port=3000
