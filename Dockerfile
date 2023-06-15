@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip 
 RUN pip install pandas \
-    pip instal plotly \
+    pip install plotly \
     pip install entsoe-py
 WORKDIR /app
 # Copy the necessary files to the container
