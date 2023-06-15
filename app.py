@@ -115,15 +115,10 @@ def log_in():
         if error is None:
             # Store user_id in session
             session.clear()
-
-            session['user_id'] = user_ref[0].id
-            print(user_ref[0])  # debug
-            return redirect('/')
             session['user_id'] = username
             print(session['user_id'])  #debug
             return redirect('/appliances')
         
-
         flash(error, 'error')
 
     return render_template('log_in.html')
