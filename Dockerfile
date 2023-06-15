@@ -5,7 +5,10 @@ RUN apt-get update && apt-get install -y \
     python3-pip 
 RUN pip install pandas \
     pip install plotly \
-    pip install entsoe-py
+    pip install entsoe-py \
+    pip install flask \
+    pip install google-cloud-firestore
+
 WORKDIR /app
 # Copy the necessary files to the container
 COPY . /app
