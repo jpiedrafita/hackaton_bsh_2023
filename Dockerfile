@@ -2,9 +2,10 @@ FROM ubuntu:latest
 # Install additional dependencies, if needed
 RUN apt-get update && apt-get install -y \
     python3 \
-    python3-pip
-COPY req.txt .
-RUN pip install -r req.txt
+    python3-pip 
+RUN pip install pandas \
+    pip instal plotly \
+    pip install entsoe-py
 WORKDIR /app
 # Copy the necessary files to the container
 COPY . /app
