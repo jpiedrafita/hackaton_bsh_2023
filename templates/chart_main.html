@@ -28,7 +28,7 @@
 <br>
 <h2> APPLIANCE IS  {{ appliance.type }} {{ appliance.brand }} {{ appliance.model }}</h2>
 
-<form action="/appliance/<appliance_id>/chart_main.html" method="POST">
+<form action="/appliance/{{appliance_id}}/chart_main.html" method="POST">
 <label for="slider">Select Time</label>
 <input type="range" id="slider" name="timeslide" min="0" max="23" step="1" oninput="updateTime(this.value)" value="12">
   <p id="timeDisplay"></p>
