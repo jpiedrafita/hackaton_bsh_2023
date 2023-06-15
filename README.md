@@ -24,7 +24,9 @@ python3 app.py
 ```bash
 pip install flask
 pip install google-cloud-firestore
-
+pip install pandas
+pip install plotly
+pip install entsoe-py
 ```
 
 
