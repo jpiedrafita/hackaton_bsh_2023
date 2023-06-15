@@ -11,10 +11,13 @@ country_code_to = 'PL_CZ' # Germany-Luxembourg
 type_marketagreement_type = 'A01'
 contract_marketagreement_type = "A01"
 
-def get_data_fromENTSOE(country_code,timeframe):  #as timeframe as tuple like ('20230614', '20230615')
-    print(timeframe)
-    start=pd.Timestamp(str(timeframe[0]), tz='Europe/Warsaw')
-    end = pd.Timestamp(str(timeframe[1]), tz='Europe/Warsaw')
+def get_data_fromENTSOE(country_code):  #as timeframe as tuple like ('20230614', '20230615')
+    start = pd.Timestamp('20230615')
+    end = pd.Timestamp('20230617')
+    start=pd.Timestamp(start, tz='Europe/Warsaw')
+    end = pd.Timestamp(end, tz='Europe/Warsaw')
     ts = client.query_generation(country_code, start=start,end=end)
     print(ts)
     return ts
+
+get_data_fromENTSOE('PL')
