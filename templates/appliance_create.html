@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1 class="is-size-3">New Appliance</h1>
+
+  <form action="#" method="post">
+    <div class="field">
+      <label class="label" for="title">Brand</label>
+      <div class="control">
+        <input name="brand" value="{{ request.form['brand'] }}" class="input"></input>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="body">Model</label>
+      <div class="control">
+        <input name="model" value="{{ request.form['model'] }}" class="input"></input>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="body">Type</label>
+      <div class="control">
+        <input name="type" value="{{ request.form['type'] }}" class="input"></input>
+      </div>
+    </div>
+
+
+    <div class="field">
+      <label class="label" for="body">Efficiency</label>
+      <div class="control">
+        <input name="efficiency" value="{{ request.form['efficiency'] }}" class="input"></input>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="body">Year</label>
+      <div class="control">
+        <input name="year" value="{{ request.form['year'] }}" class="input"></input>
+      </div>
+    </div>
+
+
+    <div class="field is-grouped">
+      <div class="control">
+        <input type="submit" value="Create Appliance" class="button is-primary" />
+      </div>
+      <div class="control">
+        <a href="{{ url_for('appliances') }}" class="#">Cancel</a>
+      </div>
+    </div>
+  </form>
+
+{% endblock %}

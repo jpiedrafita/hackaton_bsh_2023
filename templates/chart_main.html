@@ -1,12 +1,6 @@
-<!doctype html>
+{% extends 'base.html' %}
 
-<html>
-<head>
-<title>Appliance consumption</title>
-<meta name="description" content="Energy Check BSH">
-<meta name="keywords" content="energy">
-</head>
-<body>
+{% block content %}
 <br>
 <!-- somewhere up top -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -40,7 +34,7 @@
         Plotly.plot("all-pub-graph", the_pubs_graph, {});
 </script>
 <br>
-<h2> APPLIANCE IS {{appliance}}</h2>
+<h2> APPLIANCE IS  {{ appliance.type }} {{ appliance.brand }} {{ appliance.model }}</h2>
 
 <form action="/en_chart" method="POST">
 <label for="slider">Select Time</label>
@@ -57,5 +51,4 @@
 <h3>Appliance will be started at  {{timeStart}}</h3>
 
 
-</body>
-</html>
+{% endblock %}
