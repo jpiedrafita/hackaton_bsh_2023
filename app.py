@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from plotly import utils
 from json import dumps
 import plotly.express as px
-from datacharts.entso_data import get_data_fromENTSOE
+from datacharts.entso_data import get_data_fromENTSOE_green, get_data_fromENTSOE_all
 from datetime import datetime, timedelta
 from flask import Flask, render_template, request, session, redirect, url_for, flash, g
 from google.cloud import firestore
@@ -247,29 +247,36 @@ def todaydate():
 
 @app.route('/appliance/<appliance_id>/chart_main.html', methods=['GET', 'POST'])
 def chart_page(appliance_id):
-    get_timeframe=todaydate()
     appliance_ref = db.collection('user_appliances').document(appliance_id)
+    # Verifies
+    if not appliance_ref.get().exists:
+        flash('Appliance not found.', 'error')
+        return redirect(url_for('appliances'))
 
-    print(appliance_ref)
+    get_timeframe=todaydate()
     appliance=appliance_ref.get().to_dict()
-    country = request.form.get('country')
+    country = 'PL'
     timeslide = request.form.get('timeslide')
-    print(timeslide)
+    source = request.form.get('source')
+    if source == None:
+       source='clean'
+    print(source)
     if timeslide == None:
         timeslide='12'
         print('Default Time is ', timeslide)
-
     if country == None:
         country='PL'
         print('Default country is ', country)
     timeslide=timeslide+':00'
-    fig_froments=get_data_fromENTSOE(country,get_timeframe)
+    if source == 'clean':
+     fig_froments=get_data_fromENTSOE_green(country,get_timeframe)
+    else:
+     fig_froments = get_data_fromENTSOE_all(country, get_timeframe)
+    print("appliance:",appliance_id)
     # Create a JSON representation of the graph
-
     fig = px.line(fig_froments, template="seaborn")
     graphJSON = dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return render_template('chart_main.html', pub_lines_JSON=graphJSON, country=country,timeStart=timeslide,appliance=appliance)
-
+    return render_template('chart_main.html', pub_lines_JSON=graphJSON, country=country,timeStart=timeslide,appliance=appliance, appliance_id=appliance_id)
 if __name__ == '__main__':
     app.secret_key = 'test1234'  # Set a secret key for flash messages
     app.run()
