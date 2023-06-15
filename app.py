@@ -107,7 +107,7 @@ def todaydate():
 def chart_page():
     get_timeframe=todaydate()
   # print(get_timeframe)
-    appliance='DISHWASHER'
+    appliance='Washing machine'
     country = request.form.get('country')
     timeslide = request.form.get('timeslide')
     print(timeslide)
