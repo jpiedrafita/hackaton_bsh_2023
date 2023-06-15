@@ -4,17 +4,17 @@
 <br>
 <!-- somewhere up top -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<form action="/appliance/<appliance_id>/chart_main.html" method="POST">
-  <label for="country">Choose a country:</label>
-  <select name="country" id="country">
-    <option value="PL">Poland</option>
-    <option value="DE">Germany</option>
-    <option value="ES">Spain</option>
+<h2>Line Graph Energy for {{country}}</h2>
+<br>
+<form action="/appliance/{{appliance_id}}/chart_main.html" method="POST">
+  <label for="source">Choose a source:</label>
+  <select name="source" id="source" >
+    <option value="clean"  >Clean Forecasted</option>
+    <option value="all" >Current all</option>
   </select>
   <br><br>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Submit" >
 </form>
-<h2>Line Graph Energy for {{country}}</h2>
 <!-- scatter plot goes in this div -->
 <div id='all-pub-graph'></div>
 <script type="text/javascript">
