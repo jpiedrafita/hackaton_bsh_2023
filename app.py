@@ -265,7 +265,6 @@ def chart_page(appliance_id):
     if timeslide == None:
         timeslide='12'
         print('Default Time is ', timeslide)
-
     if country == None:
         country='PL'
         print('Default country is ', country)
@@ -274,13 +273,11 @@ def chart_page(appliance_id):
      fig_froments=get_data_fromENTSOE_green(country,get_timeframe)
     else:
      fig_froments = get_data_fromENTSOE_all(country, get_timeframe)
-
     print("appliance:",appliance_id)
     # Create a JSON representation of the graph
     fig = px.line(fig_froments, template="seaborn")
     graphJSON = dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return render_template('chart_main.html', pub_lines_JSON=graphJSON, country=country,timeStart=timeslide,appliance=appliance, appliance_id=appliance_id)
-
 if __name__ == '__main__':
     app.secret_key = 'test1234'  # Set a secret key for flash messages
     app.run()
