@@ -4,11 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="864f937e-8d2a-4960-8af4-4e2b5105911b" name="Changes" comment="" />
+    <list default="true" id="864f937e-8d2a-4960-8af4-4e2b5105911b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/datacharts/entso_data.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datacharts/outfile.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/CloudRangers_PitchTemplate.pptx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/ecotracker.drawio" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/ecotracker.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/appliance_consume.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/appliance_create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/appliances.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/app 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/bulma.min 2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/highlight.min 2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/highlight.min 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/chart_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/chart_main.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -25,9 +50,10 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;mykola__dev&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/nickudot/Develop/cloud-hackaton/CloudRangers&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

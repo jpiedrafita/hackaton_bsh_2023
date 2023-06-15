@@ -12,6 +12,9 @@
       <div class="message-header">
         <p>{{ appliance.type }}</p>
         <div>
+           <a class="button is-primary is-small has-text-weight-bold" href="{{ url_for('chart_page', appliance_id=appliance.id)}}">
+            Add Schedule
+          </a>
           <a class="button is-primary is-small has-text-weight-bold" href="{{ url_for('appliance_consume', appliance_id=appliance.id)}}">
             Add Consume
           </a>

@@ -1,11 +1,30 @@
+import plotly.io
+from flask import Flask, render_template, request, session, redirect, url_for, flash
+from google.cloud import firestore
+from werkzeug.security import generate_password_hash, check_password_hash
+from plotly import utils
+from json import dumps
+import plotly.express as px
+from datacharts.entso_data import get_data_fromENTSOE
+from datetime import datetime, timedelta
 from flask import Flask, render_template, request, session, redirect, url_for, flash, g
 from google.cloud import firestore
 from werkzeug.security import generate_password_hash, check_password_hash
 import functools
 
+
 app = Flask(__name__)
 # Get an instance of firestore
 db = firestore.Client.from_service_account_json('./cloud-rangers-fierebase.json')
+
+
+
+@app.route('/logout', methods=['GET', 'DELETE'])
+def logout():
+    session.clear()
+    flash('Successfully logged out.', 'success')
+    return redirect(url_for('login'))
+
 
 # We protect a view if we are not logged in --> g.user
 # This takes a view (a view function as sign_up) and returns a function that decorates it
@@ -30,9 +49,9 @@ def load_user():
         g.user = None
 
 # Sign up page - Stores user and hashed password in firestore
+
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
-
     # Get uername and password values from the register.html form
     if request.method == 'POST':
         username = request.form['username']
@@ -52,20 +71,24 @@ def sign_up():
         if error is None:
             password = generate_password_hash(password)
             new_user = {
-            'username': username,
-            'password': password
+                'username': username,
+                'password': password
             }
             # Get a reference of the users collection
             users_ref = db.collection('users')
             users_ref.add(new_user)
             flash('User created successfully!, please log in', 'success')
             return redirect(url_for('log_in'))
-        
+
         flash(error, 'error')
 
     return render_template('sign_up.html')
 
+
+
+
 # Log in page - Read creentials from firestore and creates session
+
 @app.route('/log_in', methods=['GET', 'POST'])
 def log_in():
     # Get data from the login.html form
@@ -86,15 +109,21 @@ def log_in():
             stored_password = user_data.get('password')
             if not check_password_hash(stored_password, password):
                 error = 'Username or password are incorrect.'
-        
+
         # If there are no errors the user is logged in and redirect to main page
+
         if error is None:
-            #Store user_id in session
+            # Store user_id in session
             session.clear()
+
+            session['user_id'] = user_ref[0].id
+            print(user_ref[0])  # debug
+            return redirect('/')
             session['user_id'] = username
             print(session['user_id'])  #debug
             return redirect('/appliances')
         
+
         flash(error, 'error')
 
     return render_template('log_in.html')
@@ -105,6 +134,7 @@ def log_out():
     session.clear()
     flash('Successfully logged out.', 'success')
     return redirect(url_for('log_in'))
+
 
 # Home page
 @app.route('/')
@@ -208,17 +238,42 @@ def appliance_consume(appliance_id):
     return render_template('appliance_consume.html', appliance=appliance)
 
 
-
-#TODO
-# @app.route('appliances/<appliance_id>/readings', methods=('GET', 'POST'))
-# @require_login
-# def register_reading(appliance_id):
-#     #TODO: query appliance
-#     return render_template('register_reading.html')
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html')
+
+
+def todaydate():
+    today = datetime.now().date()
+    formatted_date = today.strftime('%Y%m%d')
+    next_day = today + timedelta(days=2)
+    tomorrow = next_day.strftime('%Y%m%d')
+    return (formatted_date,tomorrow)
+
+@app.route('/appliance/<appliance_id>/chart_main.html', methods=['GET', 'POST'])
+def chart_page(appliance_id):
+    get_timeframe=todaydate()
+    appliance_ref = db.collection('user_appliances').document(appliance_id)
+
+    print(appliance_ref)
+    appliance=appliance_ref.get().to_dict()
+    country = request.form.get('country')
+    timeslide = request.form.get('timeslide')
+    print(timeslide)
+    if timeslide == None:
+        timeslide='12'
+        print('Default Time is ', timeslide)
+
+    if country == None:
+        country='PL'
+        print('Default country is ', country)
+    timeslide=timeslide+':00'
+    fig_froments=get_data_fromENTSOE(country,get_timeframe)
+    # Create a JSON representation of the graph
+
+    fig = px.line(fig_froments, template="seaborn")
+    graphJSON = dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return render_template('chart_main.html', pub_lines_JSON=graphJSON, country=country,timeStart=timeslide,appliance=appliance)
 
 if __name__ == '__main__':
     app.secret_key = 'test1234'  # Set a secret key for flash messages
