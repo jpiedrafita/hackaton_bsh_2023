@@ -94,7 +94,7 @@ def log_in():
             session.clear()
             session['user_id'] = username
             print(session['user_id'])  #debug
-            return redirect('/')
+            return redirect('/appliances')
         
         flash(error, 'error')
 
@@ -179,6 +179,34 @@ def appliance_delete(appliance_id):
     else:
         flash("Appliance does not exist.", 'error')
     return redirect(url_for('appliances'))
+
+@app.route('/appliances/<appliance_id>/consume', methods=('GET', 'POST'))
+@require_login
+def appliance_consume(appliance_id):
+    #Get appliance data from appliance ID
+    appliance_ref = db.collection('user_appliances').document(appliance_id)
+    # Verifies
+    if not appliance_ref.get().exists:
+        flash('Appliance not found.', 'error')
+        return redirect(url_for('appliances'))
+  
+    appliance = appliance_ref.get().to_dict()
+
+    # Save reading in POST
+    if request.method == 'POST':
+        # Get the date and teh reading from the form
+        date = request.form['date']
+        reading = request.form['reading']
+        # Check if 'consume' map exists in the document
+        if 'consume' not in appliance:
+            appliance['consume'] = {}
+        # Add or update the reading
+        appliance['consume'][date] = reading
+        # Update db
+        appliance_ref.update(appliance)
+        flash('Reading saved successfully.', 'success')
+    
+    return render_template('appliance_consume.html', appliance=appliance)
 
 
 
