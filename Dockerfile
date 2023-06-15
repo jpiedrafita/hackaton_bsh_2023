@@ -11,9 +11,12 @@ RUN pip install pandas \
     pip install flask \
     pip install google-cloud-firestore
 
-WORKDIR /app
-# Copy the necessary files to the container
-COPY . /app
+# WORKDIR /app
+# # Copy the necessary files to the container
+# COPY . /app
+
+COPY . .
+
 # Run any required commands
 ENV FLASK_ENV=development
 ENV FLASK_APP=app.py
