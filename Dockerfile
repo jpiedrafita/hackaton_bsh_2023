@@ -3,7 +3,7 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip
-RUN pip install -r req.txt
+RUN pip install -r /app/req.txt
 WORKDIR /app
 # Copy the necessary files to the container
 COPY . /app
